@@ -22,16 +22,6 @@ const WILLIAM_URL = "https://customer-assets.emergentagent.com/job_taekwondo-lan
 const WHATSAPP_URL = "https://wa.me/553199490457?text=Ol%C3%A1%2C%20professor%20William!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita.";
 const INSTAGRAM_URL = "https://www.instagram.com/equipefidelistkd/";
 
-// Gallery Images
-const GALLERY_IMAGES = [
-  "https://images.unsplash.com/photo-1734189230018-490c04c78001?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1758778933112-af9fde620101?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1765303191119-89d0221d5c0b?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1769095216189-0ae27b6cc726?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1769095213266-4e8a64c8f874?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1758778932701-76ef06971b93?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-];
-
 // Navbar Component
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -64,7 +54,6 @@ const Navbar = () => {
           />
         </a>
         
-        {/* Desktop CTA */}
         <a
           href={WHATSAPP_URL}
           target="_blank"
@@ -75,7 +64,6 @@ const Navbar = () => {
           <span>Agendar</span>
         </a>
 
-        {/* Mobile Menu Button */}
         <button 
           className="md:hidden text-white p-2"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -85,7 +73,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -122,7 +109,6 @@ const HeroSection = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       data-testid="hero-section"
     >
-      {/* Background Image with Parallax */}
       <motion.div 
         style={{ y }}
         className="absolute inset-0 z-0"
@@ -136,16 +122,11 @@ const HeroSection = () => {
         />
       </motion.div>
 
-      {/* Gradient Overlay */}
       <div className="absolute inset-0 hero-overlay z-10" />
-
-      {/* Red Glow */}
       <div className="absolute inset-0 red-glow-bg z-10" />
 
-      {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 py-32 text-center">
         <div className="space-y-8">
-          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -159,7 +140,6 @@ const HeroSection = () => {
             </span>
           </motion.div>
 
-          {/* Main Title */}
           <motion.h1 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,7 +151,6 @@ const HeroSection = () => {
             <span className="text-red-500">Construa Seu Caráter</span>
           </motion.h1>
 
-          {/* Subtitle */}
           <motion.p 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -182,7 +161,6 @@ const HeroSection = () => {
             Disciplina, força e respeito. Uma jornada para a vida.
           </motion.p>
 
-          {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -204,9 +182,53 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Decorative Elements */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050505] to-transparent z-20" />
     </section>
+  );
+};
+
+// Audience Card Component
+const AudienceCard = ({ title, description, benefits, icon: Icon, index }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+      className="feature-card bg-neutral-900/50 border border-white/10 p-8 md:p-10"
+      data-testid={`audience-card-${index}`}
+    >
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 bg-red-600/20 border border-red-600/50 flex items-center justify-center">
+          <Icon className="w-7 h-7 text-red-500" />
+        </div>
+        <h3 className="text-2xl font-bold text-white">{title}</h3>
+      </div>
+      
+      <p className="text-neutral-400 mb-6">{description}</p>
+      
+      <ul className="space-y-3">
+        <li className="flex items-center gap-3 text-neutral-300">
+          <div className="w-2 h-2 bg-red-500" />
+          {benefits[0]}
+        </li>
+        <li className="flex items-center gap-3 text-neutral-300">
+          <div className="w-2 h-2 bg-red-500" />
+          {benefits[1]}
+        </li>
+        <li className="flex items-center gap-3 text-neutral-300">
+          <div className="w-2 h-2 bg-red-500" />
+          {benefits[2]}
+        </li>
+        <li className="flex items-center gap-3 text-neutral-300">
+          <div className="w-2 h-2 bg-red-500" />
+          {benefits[3]}
+        </li>
+      </ul>
+    </motion.div>
   );
 };
 
@@ -215,42 +237,15 @@ const TargetSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const audiences = [
-    {
-      title: "Para Seus Filhos",
-      Icon: Users,
-      description: "Disciplina, respeito e foco longe das telas.",
-      benefits: [
-        "Foco nos estudos",
-        "Disciplina e respeito",
-        "Autoconfiança",
-        "Valores para a vida"
-      ]
-    },
-    {
-      title: "Para Você",
-      Icon: Zap,
-      description: "Condicionamento físico, defesa pessoal e alívio do stress.",
-      benefits: [
-        "Força e agilidade",
-        "Defesa pessoal real",
-        "Alívio do estresse",
-        "Comunidade vencedora"
-      ]
-    }
-  ];
-
   return (
     <section 
       ref={ref}
       className="py-24 md:py-32 bg-[#050505] relative"
       data-testid="target-section"
     >
-      {/* Section Divider */}
       <div className="section-divider w-full mb-24" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -265,39 +260,49 @@ const TargetSection = () => {
           </p>
         </motion.div>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {audiences.map((audience, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="feature-card bg-neutral-900/50 border border-white/10 p-8 md:p-10"
-              data-testid={`audience-card-${index}`}
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 bg-red-600/20 border border-red-600/50 flex items-center justify-center">
-                  <audience.Icon className="w-7 h-7 text-red-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-white">{audience.title}</h3>
-              </div>
-              
-              <p className="text-neutral-400 mb-6">{audience.description}</p>
-              
-              <ul className="space-y-3">
-                {audience.benefits.map((benefit, i) => (
-                  <li key={i} className="flex items-center gap-3 text-neutral-300">
-                    <div className="w-2 h-2 bg-red-500" />
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+          <AudienceCard 
+            title="Para Seus Filhos"
+            description="Disciplina, respeito e foco longe das telas."
+            benefits={["Foco nos estudos", "Disciplina e respeito", "Autoconfiança", "Valores para a vida"]}
+            icon={Users}
+            index={0}
+          />
+          <AudienceCard 
+            title="Para Você"
+            description="Condicionamento físico, defesa pessoal e alívio do stress."
+            benefits={["Força e agilidade", "Defesa pessoal real", "Alívio do estresse", "Comunidade vencedora"]}
+            icon={Zap}
+            index={1}
+          />
         </div>
       </div>
     </section>
+  );
+};
+
+// Pillar Card Component
+const PillarCard = ({ title, desc, icon: Icon, index }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+      className="flex items-start gap-4 p-4 bg-neutral-900/50 border border-white/5 hover:border-red-600/30 transition-colors"
+      data-testid={`pillar-${index}`}
+    >
+      <div className="w-12 h-12 bg-red-600/20 flex items-center justify-center flex-shrink-0">
+        <Icon className="w-6 h-6 text-red-500" />
+      </div>
+      <div>
+        <h4 className="font-bold text-white mb-1">{title}</h4>
+        <p className="text-neutral-400 text-sm">{desc}</p>
+      </div>
+    </motion.div>
   );
 };
 
@@ -306,24 +311,16 @@ const AuthoritySection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const pillars = [
-    { Icon: Target, title: "Técnica Impecável", desc: "Fundamentos sólidos e movimentos precisos" },
-    { Icon: Shield, title: "Disciplina Inegociável", desc: "Comprometimento total com a excelência" },
-    { Icon: Heart, title: "Respeito Mútuo", desc: "Base de toda relação no tatame e na vida" }
-  ];
-
   return (
     <section 
       ref={ref}
       className="py-24 md:py-32 bg-[#0A0A0A] relative overflow-hidden"
       data-testid="authority-section"
     >
-      {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-600/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
@@ -342,29 +339,12 @@ const AuthoritySection = () => {
               </p>
             </div>
 
-            {/* Pillars */}
             <div className="space-y-4">
-              {pillars.map((pillar, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  className="flex items-start gap-4 p-4 bg-neutral-900/50 border border-white/5 hover:border-red-600/30 transition-colors"
-                  data-testid={`pillar-${index}`}
-                >
-                  <div className="w-12 h-12 bg-red-600/20 flex items-center justify-center flex-shrink-0">
-                    <pillar.Icon className="w-6 h-6 text-red-500" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white mb-1">{pillar.title}</h4>
-                    <p className="text-neutral-400 text-sm">{pillar.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
+              <PillarCard title="Técnica Impecável" desc="Fundamentos sólidos e movimentos precisos" icon={Target} index={0} />
+              <PillarCard title="Disciplina Inegociável" desc="Comprometimento total com a excelência" icon={Shield} index={1} />
+              <PillarCard title="Respeito Mútuo" desc="Base de toda relação no tatame e na vida" icon={Heart} index={2} />
             </div>
 
-            {/* Quote */}
             <motion.blockquote
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -378,7 +358,6 @@ const AuthoritySection = () => {
             </motion.blockquote>
           </motion.div>
 
-          {/* Image/Visual */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
@@ -394,12 +373,35 @@ const AuthoritySection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             </div>
-            {/* Decorative */}
             <div className="absolute -bottom-4 -right-4 w-full h-full border border-red-600/30 -z-10" />
           </motion.div>
         </div>
       </div>
     </section>
+  );
+};
+
+// Gallery Item Component
+const GalleryItem = ({ src, index }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="gallery-item aspect-square bg-neutral-900"
+      data-testid={`gallery-item-${index}`}
+    >
+      <img 
+        src={src}
+        alt={`Treino CT Fidelis ${index + 1}`}
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </motion.div>
   );
 };
 
@@ -415,7 +417,6 @@ const GallerySection = () => {
       data-testid="gallery-section"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -430,28 +431,15 @@ const GallerySection = () => {
           </p>
         </motion.div>
 
-        {/* Gallery Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-          {GALLERY_IMAGES.map((img, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="gallery-item aspect-square bg-neutral-900"
-              data-testid={`gallery-item-${index}`}
-            >
-              <img 
-                src={img}
-                alt={`Treino CT Fidelis ${index + 1}`}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </motion.div>
-          ))}
+          <GalleryItem src="https://images.unsplash.com/photo-1734189230018-490c04c78001?crop=entropy&cs=srgb&fm=jpg&q=85&w=600" index={0} />
+          <GalleryItem src="https://images.unsplash.com/photo-1758778933112-af9fde620101?crop=entropy&cs=srgb&fm=jpg&q=85&w=600" index={1} />
+          <GalleryItem src="https://images.unsplash.com/photo-1765303191119-89d0221d5c0b?crop=entropy&cs=srgb&fm=jpg&q=85&w=600" index={2} />
+          <GalleryItem src="https://images.unsplash.com/photo-1769095216189-0ae27b6cc726?crop=entropy&cs=srgb&fm=jpg&q=85&w=600" index={3} />
+          <GalleryItem src="https://images.unsplash.com/photo-1769095213266-4e8a64c8f874?crop=entropy&cs=srgb&fm=jpg&q=85&w=600" index={4} />
+          <GalleryItem src="https://images.unsplash.com/photo-1758778932701-76ef06971b93?crop=entropy&cs=srgb&fm=jpg&q=85&w=600" index={5} />
         </div>
 
-        {/* Instagram CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -487,13 +475,11 @@ const CTASection = () => {
       className="py-24 md:py-32 bg-[#0A0A0A] relative overflow-hidden"
       data-testid="cta-section"
     >
-      {/* Background Effects */}
       <div className="absolute inset-0 red-glow-bg opacity-50" />
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-600/50 to-transparent" />
 
       <div className="max-w-4xl mx-auto px-6 md:px-12 text-center relative z-10">
         <div className="space-y-8">
-          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -507,7 +493,6 @@ const CTASection = () => {
             </span>
           </motion.div>
 
-          {/* Title */}
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -518,7 +503,6 @@ const CTASection = () => {
             Seu Primeiro <span className="text-red-500">Passo</span>
           </motion.h2>
 
-          {/* Description */}
           <motion.p 
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -528,7 +512,6 @@ const CTASection = () => {
             Aula gratuita. Sem custos. <span className="text-white font-semibold">Sem compromisso.</span>
           </motion.p>
 
-          {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -548,7 +531,6 @@ const CTASection = () => {
             </a>
           </motion.div>
 
-          {/* Urgency */}
           <motion.p 
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -570,7 +552,6 @@ const Footer = () => {
     <footer className="py-16 bg-[#050505] border-t border-white/5" data-testid="footer">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* Logo & Description */}
           <div className="space-y-4">
             <img 
               src={LOGO_URL} 
@@ -583,7 +564,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Contact */}
           <div className="space-y-4">
             <h4 className="font-bold text-white uppercase tracking-wide">Contato</h4>
             <ul className="space-y-3">
@@ -616,7 +596,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social */}
           <div className="space-y-4">
             <h4 className="font-bold text-white uppercase tracking-wide">Redes Sociais</h4>
             <div className="flex gap-4">
@@ -642,7 +621,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-white/5 text-center">
           <p className="text-neutral-500 text-sm">
             © {new Date().getFullYear()} CT Fidelis. Todos os direitos reservados.
@@ -673,13 +651,8 @@ const WhatsAppFloat = () => {
 function App() {
   return (
     <div className="App">
-      {/* Grain Overlay */}
       <div className="grain-overlay" />
-      
-      {/* Navigation */}
       <Navbar />
-      
-      {/* Main Content */}
       <main>
         <HeroSection />
         <TargetSection />
@@ -687,11 +660,7 @@ function App() {
         <GallerySection />
         <CTASection />
       </main>
-      
-      {/* Footer */}
       <Footer />
-      
-      {/* WhatsApp Float */}
       <WhatsAppFloat />
     </div>
   );
