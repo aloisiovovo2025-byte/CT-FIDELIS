@@ -1,0 +1,161 @@
+{
+  "identity": {
+    "persona": "E1: The Anti-AI Designer",
+    "archetype": "The Performance Pro (Archetype 2)",
+    "tone": "Disciplined, Intense, Transformative, Professional",
+    "mission": "Create a high-impact, conversion-focused landing page for CT Fidelis that evokes the discipline and strength of Taekwondo."
+  },
+  "typography": {
+    "headings": {
+      "family": "Barlow Condensed, sans-serif",
+      "weights": ["700", "900"],
+      "usage": "All section titles, hero text, and major CTAs. Use uppercase for maximum impact.",
+      "letterSpacing": "tracking-tight"
+    },
+    "body": {
+      "family": "Manrope, sans-serif",
+      "weights": ["400", "500"],
+      "usage": "Paragraphs, list items, testimonials.",
+      "letterSpacing": "tracking-normal"
+    },
+    "google_fonts_import": "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Manrope:wght@400;500;700&display=swap"
+  },
+  "colors": {
+    "palette": {
+      "background": {
+        "default": "#050505",
+        "paper": "#0A0A0A",
+        "subtle": "#121212"
+      },
+      "primary": {
+        "main": "#DC2626",
+        "hover": "#EF4444",
+        "glow": "rgba(220, 38, 38, 0.5)"
+      },
+      "text": {
+        "primary": "#FFFFFF",
+        "secondary": "#A3A3A3",
+        "muted": "#525252"
+      },
+      "border": {
+        "default": "#262626",
+        "active": "#404040"
+      }
+    },
+    "gradients": {
+      "hero_overlay": "linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,1) 100%)",
+      "red_glow": "radial-gradient(circle at center, rgba(220,38,38,0.15) 0%, rgba(5,5,5,0) 70%)"
+    }
+  },
+  "layout": {
+    "container": {
+      "maxWidth": "max-w-7xl",
+      "padding": "px-6 md:px-12"
+    },
+    "spacing": {
+      "section": "py-24 md:py-32",
+      "element": "gap-6 md:gap-8"
+    },
+    "grid_system": {
+      "social_proof": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4",
+      "features": "grid-cols-1 md:grid-cols-2 gap-8"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": {
+        "style": "bg-red-600 hover:bg-red-500 text-white font-bold uppercase tracking-wider px-8 py-4 transform -skew-x-12 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)]",
+        "text_style": "transform skew-x-12 inline-block"
+      },
+      "secondary": {
+        "style": "bg-transparent border border-white/20 hover:border-red-500 text-white font-bold uppercase tracking-wider px-8 py-4 transform -skew-x-12 transition-all duration-300 hover:bg-white/5",
+        "text_style": "transform skew-x-12 inline-block"
+      },
+      "whatsapp_float": {
+        "style": "fixed bottom-8 right-8 z-50 bg-[#25D366] hover:bg-[#128C7E] text-white p-4 rounded-full shadow-2xl transition-transform hover:scale-110 animate-bounce-slow"
+      }
+    },
+    "cards": {
+      "feature": {
+        "style": "group relative bg-neutral-900/50 border border-white/10 p-8 hover:border-red-600/50 transition-colors duration-300 overflow-hidden",
+        "hover_effect": "absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      },
+      "testimonial": {
+        "style": "bg-neutral-900 p-6 border-l-4 border-red-600"
+      }
+    },
+    "navbar": {
+      "style": "fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/5 h-20 flex items-center"
+    }
+  },
+  "assets": {
+    "logo": "https://customer-assets.emergentagent.com/job_taekwondo-landing/artifacts/d80gezzv_image.png",
+    "hero_image": "https://customer-assets.emergentagent.com/job_taekwondo-landing/artifacts/npkxbt9c_image.png",
+    "stock_images": {
+      "kids_training": "https://images.unsplash.com/photo-1635962005741-a9c4904d110b?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "adults_training": "https://images.unsplash.com/photo-1560631820-ecf9d56ba39e?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "focus_discipline": "https://images.unsplash.com/photo-1602827115146-853fa12ba155?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "action_kick": "https://images.unsplash.com/photo-1602827115134-d366b3148ba5?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "black_belt": "https://images.unsplash.com/photo-1765438850214-ba8c1af80843?crop=entropy&cs=srgb&fm=jpg&q=85"
+    }
+  },
+  "motion": {
+    "library": "framer-motion",
+    "animations": {
+      "fade_up": {
+        "initial": { "opacity": 0, "y": 40 },
+        "whileInView": { "opacity": 1, "y": 0 },
+        "viewport": { "once": true },
+        "transition": { "duration": 0.6, "ease": "easeOut" }
+      },
+      "stagger_container": {
+        "hidden": { "opacity": 0 },
+        "show": {
+          "opacity": 1,
+          "transition": { "staggerChildren": 0.1 }
+        }
+      },
+      "parallax_hero": "Use useScroll and useTransform to move the background image slower than the foreground text."
+    }
+  },
+  "sections_structure": {
+    "hero": {
+      "layout": "Full screen (h-screen), content centered or left-aligned depending on image composition.",
+      "elements": ["Background Image (William)", "Overlay Gradient", "Badge 'TRANSFORMAÇÃO REAL'", "H1 Title", "Subtitle", "CTA Button"]
+    },
+    "target_audience": {
+      "title": "PARA QUEM É O CT FIDELIS?",
+      "cards": [
+        { "title": "PARA SEUS FILHOS", "icon": "ChildCare", "desc": "Disciplina, respeito e foco longe das telas." },
+        { "title": "PARA VOCÊ", "icon": "FitnessCenter", "desc": "Condicionamento físico, defesa pessoal e alívio do stress." }
+      ]
+    },
+    "authority": {
+      "layout": "Asymmetrical grid. Text on one side, William's photo or action shot on the other.",
+      "content": ["3 Pilares: Técnica, Disciplina, Respeito", "Bio summary", "Quote"]
+    },
+    "social_proof": {
+      "layout": "Masonry grid of 6 images (mix of stock and placeholders if needed, but prioritize stock provided).",
+      "overlay": "Instagram handle @equipefidelistkd on hover."
+    },
+    "cta_final": {
+      "style": "High intensity, red background or dark background with red glow.",
+      "elements": ["Badge 'VAGAS LIMITADAS'", "H2 'Comece Sua Jornada Hoje'", "Button 'AGENDAR AGORA'"]
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. SETUP: Install 'lucide-react' for icons and 'framer-motion' for animations.",
+    "2. CLEANUP: Remove all default CRA styles in App.css and index.css. Apply the dark theme variables in index.css.",
+    "3. FONTS: Add the Google Fonts link to the <head> of public/index.html immediately.",
+    "4. IMAGES: Use the provided 'William' image for the Hero background. Ensure text contrast is high using overlays.",
+    "5. WHATSAPP: The 'Aula Gratuita' and 'Agendar' buttons must link to 'https://wa.me/553199490457'.",
+    "6. MOBILE: Ensure the Hero text is readable on mobile (stack elements). The Navbar should have a mobile menu or simple layout.",
+    "7. TESTIDS: Add data-testid to all buttons and inputs."
+  ],
+  "universal_guidelines": [
+    "Do not use gradients for text unless it's a very subtle shine.",
+    "Avoid 'Inter' for headings. Use 'Barlow Condensed'.",
+    "Use 2x more padding than you think is necessary.",
+    "Ensure all text has sufficient contrast against the dark background."
+  ]
+}
