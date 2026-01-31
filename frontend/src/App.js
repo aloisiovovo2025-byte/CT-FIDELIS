@@ -18,7 +18,7 @@ import {
 
 // Assets
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_taekwondo-landing/artifacts/d80gezzv_image.png";
-const WILLIAM_URL = "https://customer-assets.emergentagent.com/job_taekwondo-landing/artifacts/npkxbt9c_image.png";
+const WILLIAM_URL = "https://images.unsplash.com/photo-1550759807-6419ff64a5e9?crop=entropy&cs=srgb&fm=jpg&q=85&w=800";
 const WHATSAPP_URL = "https://wa.me/553199490457?text=Ol%C3%A1%2C%20professor%20William!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita.";
 const INSTAGRAM_URL = "https://www.instagram.com/equipefidelistkd/";
 
