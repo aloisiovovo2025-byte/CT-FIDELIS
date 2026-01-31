@@ -1,34 +1,140 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* CT Fidelis Landing Page Styles */
+
+/* Hero Background with Parallax Effect */
+.hero-bg {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+@media (max-width: 768px) {
+  .hero-bg {
+    background-attachment: scroll;
+  }
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Gradient Overlays */
+.hero-overlay {
+  background: linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.7) 50%, rgba(5,5,5,1) 100%);
 }
 
-.App-link {
-    color: #61dafb;
+.red-glow-bg {
+  background: radial-gradient(circle at center, rgba(220,38,38,0.15) 0%, rgba(5,5,5,0) 70%);
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Skewed Button Styles */
+.btn-skew {
+  transform: skewX(-12deg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-skew:hover {
+  transform: skewX(-12deg) scale(1.05);
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.4);
+}
+
+.btn-skew span {
+  display: inline-block;
+  transform: skewX(12deg);
+}
+
+/* Card Hover Effects */
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-card:hover {
+  border-color: rgba(220, 38, 38, 0.5);
+  transform: translateY(-4px);
+}
+
+/* Image Grid Hover */
+.gallery-item {
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-item img {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(220, 38, 38, 0.6) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+/* Text Glow Effect */
+.text-glow {
+  text-shadow: 0 0 40px rgba(220, 38, 38, 0.5);
+}
+
+/* Navbar Styles */
+.navbar-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Badge Pulse */
+.badge-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Section Divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(220, 38, 38, 0.3) 50%, transparent 100%);
+}
+
+/* WhatsApp Float Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+}
+
+/* Grain Texture Overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 9999;
 }
