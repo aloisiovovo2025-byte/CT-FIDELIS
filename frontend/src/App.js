@@ -12,9 +12,7 @@ import {
   Users,
   Zap,
   Menu,
-  X,
-  ChevronLeft,
-  ChevronRight
+  X
 } from "lucide-react";
 
 // Assets - Updated with correct URLs
@@ -43,6 +41,35 @@ const WhatsAppIcon = ({ size = 24 }) => (
     style={{ width: size, height: size, objectFit: 'contain' }}
   />
 );
+
+// Split Button Component with diagonal animation
+const SplitButton = ({ children, href, className = "", testId }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = (e) => {
+    setIsClicked(true);
+    setTimeout(() => {
+      setIsClicked(false);
+      // Navigate after animation
+      if (href) {
+        window.open(href, '_blank', 'noopener,noreferrer');
+      }
+    }, 400);
+    e.preventDefault();
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className={`split-button relative overflow-hidden ${className} ${isClicked ? 'is-clicked' : ''}`}
+      data-testid={testId}
+    >
+      <span className="split-button-top">{children}</span>
+      <span className="split-button-bottom">{children}</span>
+      <span className="split-button-content">{children}</span>
+    </button>
+  );
+};
 
 // Premium Animation Variants - Slide from sides
 const slideFromLeft = {
@@ -125,16 +152,14 @@ const Navbar = () => {
           />
         </a>
         
-        <a
+        <SplitButton
           href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
           className="hidden md:flex items-center gap-2 btn-premium bg-red-600 hover:bg-red-500 text-white font-bold uppercase tracking-wider px-8 py-3 text-sm"
-          data-testid="navbar-cta-btn"
+          testId="navbar-cta-btn"
         >
           <WhatsAppIcon size={18} />
           Agendar
-        </a>
+        </SplitButton>
 
         <button 
           className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
@@ -152,16 +177,14 @@ const Navbar = () => {
           exit={{ opacity: 0, height: 0 }}
           className="md:hidden bg-black/98 navbar-blur border-t border-white/5 px-6 py-6"
         >
-          <a
+          <SplitButton
             href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full btn-premium bg-red-600 text-white font-bold uppercase tracking-wider px-8 py-4 text-sm"
-            data-testid="mobile-cta-btn"
+            testId="mobile-cta-btn"
           >
             <WhatsAppIcon size={18} />
             Agendar Aula Gratuita
-          </a>
+          </SplitButton>
         </motion.div>
       )}
     </nav>
@@ -253,16 +276,14 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <a
+            <SplitButton
               href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 btn-premium bg-red-600 hover:bg-red-500 text-white font-bold uppercase tracking-wider text-sm md:text-base px-10 md:px-14 py-4 md:py-5"
-              data-testid="hero-cta-btn"
+              testId="hero-cta-btn"
             >
               <WhatsAppIcon size={22} />
               Aula Gratuita
-            </a>
+            </SplitButton>
           </motion.div>
         </div>
       </motion.div>
@@ -452,29 +473,29 @@ const AuthoritySection = () => {
                 <p className="text-lg md:text-xl lg:text-2xl text-white italic font-light leading-relaxed" data-testid="authority-quote">
                   "Cada aluno é um campeão em formação"
                 </p>
-                <cite className="text-neutral-500 text-sm mt-3 block not-italic">— Mestre William Fidelis</cite>
+                <cite className="text-neutral-500 text-sm mt-3 block not-italic">— Professor William Fidelis</cite>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Image */}
+          {/* Image - Smaller on mobile */}
           <motion.div
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={slideFromRight}
             className="relative order-1 lg:order-2"
           >
-            <div className="william-image-container aspect-[3/4] bg-neutral-900 overflow-hidden">
+            <div className="william-image-container aspect-square md:aspect-[3/4] max-h-[350px] md:max-h-none bg-neutral-900 overflow-hidden mx-auto w-full max-w-[280px] md:max-w-none">
               <img 
                 src={WILLIAM_URL}
-                alt="Mestre William Fidelis"
+                alt="Professor William Fidelis"
                 className="w-full h-full object-cover object-top"
                 data-testid="william-image"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
             </div>
             {/* Decorative */}
-            <div className="absolute -bottom-6 -right-6 w-full h-full border border-red-600/20 -z-10" />
+            <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-full h-full border border-red-600/20 -z-10 max-w-[280px] md:max-w-none mx-auto" />
           </motion.div>
         </div>
       </div>
@@ -482,13 +503,12 @@ const AuthoritySection = () => {
   );
 };
 
-// Image Carousel Section
+// Image Carousel Section - Smaller cards with preview
 const CarouselSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const carouselRef = useRef(null);
 
   // Auto-play functionality
   useEffect(() => {
@@ -504,18 +524,17 @@ const CarouselSection = () => {
   const goToSlide = useCallback((index) => {
     setCurrentIndex(index);
     setIsAutoPlaying(false);
-    // Resume auto-play after 8 seconds
-    setTimeout(() => setIsAutoPlaying(true), 8000);
-  }, []);
-
-  const goToPrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length);
-    setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 8000);
   }, []);
 
   const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % GALLERY_IMAGES.length);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  }, []);
+
+  const goToPrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length);
     setIsAutoPlaying(false);
     setTimeout(() => setIsAutoPlaying(true), 8000);
   }, []);
@@ -544,6 +563,10 @@ const CarouselSection = () => {
     if (isRightSwipe) goToPrev();
   };
 
+  // Calculate card width percentage (70% for main card, showing 15% on each side)
+  const cardWidth = 70; // percentage
+  const gap = 2; // percentage gap between cards
+
   return (
     <section 
       ref={ref}
@@ -556,7 +579,7 @@ const CarouselSection = () => {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={slideFromBottom}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-6 tracking-wide" data-testid="gallery-title">
             Veja a{" "}
@@ -574,74 +597,73 @@ const CarouselSection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="relative"
         >
-          {/* Navigation Arrows */}
-          <button
-            onClick={goToPrev}
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-black/60 hover:bg-red-600/80 border border-white/10 hover:border-red-500/50 flex items-center justify-center text-white transition-all duration-300 backdrop-blur-sm"
-            data-testid="carousel-prev-btn"
-            aria-label="Foto anterior"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          
-          <button
-            onClick={goToNext}
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-black/60 hover:bg-red-600/80 border border-white/10 hover:border-red-500/50 flex items-center justify-center text-white transition-all duration-300 backdrop-blur-sm"
-            data-testid="carousel-next-btn"
-            aria-label="Próxima foto"
-          >
-            <ChevronRight size={24} />
-          </button>
-
           {/* Carousel Track */}
           <div 
-            ref={carouselRef}
-            className="relative overflow-hidden"
+            className="relative overflow-hidden py-4"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
             <motion.div
-              className="flex"
-              animate={{ x: `-${currentIndex * 100}%` }}
+              className="flex items-center"
+              animate={{ 
+                x: `calc(-${currentIndex * (cardWidth + gap)}% + ${(100 - cardWidth) / 2}%)` 
+              }}
               transition={{ 
                 type: "spring", 
-                stiffness: 300, 
-                damping: 30,
-                duration: 0.5 
+                stiffness: 200, 
+                damping: 25,
               }}
             >
-              {GALLERY_IMAGES.map((src, index) => (
-                <div 
-                  key={index}
-                  className="flex-shrink-0 w-full"
-                  data-testid={`carousel-slide-${index}`}
-                >
-                  <div className="aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-neutral-900">
-                    <img 
-                      src={src}
-                      alt={`Treino CT Fidelis ${index + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                      loading={index === 0 ? "eager" : "lazy"}
-                    />
-                    {/* Overlay gradients */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" />
-                  </div>
-                </div>
-              ))}
+              {GALLERY_IMAGES.map((src, index) => {
+                const isActive = index === currentIndex;
+                const distance = Math.abs(index - currentIndex);
+                
+                return (
+                  <motion.div 
+                    key={index}
+                    className="flex-shrink-0 px-2"
+                    style={{ width: `${cardWidth}%` }}
+                    animate={{
+                      scale: isActive ? 1 : 0.9,
+                      opacity: isActive ? 1 : 0.5,
+                    }}
+                    transition={{ duration: 0.4 }}
+                    onClick={() => goToSlide(index)}
+                    data-testid={`carousel-slide-${index}`}
+                  >
+                    <div 
+                      className={`carousel-card aspect-[4/3] overflow-hidden bg-neutral-900 rounded-2xl cursor-pointer transition-all duration-300 ${
+                        isActive ? 'shadow-2xl shadow-red-900/20' : ''
+                      }`}
+                    >
+                      <img 
+                        src={src}
+                        alt={`Treino CT Fidelis ${index + 1}`}
+                        className="w-full h-full object-cover"
+                        loading={index <= 2 ? "eager" : "lazy"}
+                      />
+                      {/* Overlay for non-active */}
+                      {!isActive && (
+                        <div className="absolute inset-0 bg-black/30 rounded-2xl" />
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
 
           {/* Dot Indicators */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className="flex justify-center gap-2 mt-8">
             {GALLERY_IMAGES.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                className={`h-2 rounded-full transition-all duration-300 ${
                   index === currentIndex 
                     ? 'w-8 bg-red-500' 
-                    : 'bg-white/30 hover:bg-white/50'
+                    : 'w-2 bg-white/30 hover:bg-white/50'
                 }`}
                 data-testid={`carousel-dot-${index}`}
                 aria-label={`Ir para foto ${index + 1}`}
@@ -650,7 +672,7 @@ const CarouselSection = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="mt-4 h-0.5 bg-white/10 overflow-hidden">
+          <div className="mt-4 h-0.5 bg-white/10 overflow-hidden rounded-full max-w-md mx-auto">
             <motion.div
               className="h-full bg-red-500"
               initial={{ width: "0%" }}
@@ -671,16 +693,14 @@ const CarouselSection = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center mt-14"
         >
-          <a
+          <SplitButton
             href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             className="inline-flex items-center gap-3 btn-premium border border-white/20 hover:border-red-500/50 text-white font-semibold uppercase tracking-wider text-sm px-10 py-4 transition-all hover:bg-red-600/10"
-            data-testid="instagram-btn"
+            testId="instagram-btn"
           >
             <Instagram size={18} />
             @equipefidelistkd
-          </a>
+          </SplitButton>
         </motion.div>
       </div>
     </section>
@@ -730,16 +750,14 @@ const CTASection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <a
+            <SplitButton
               href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 btn-premium bg-red-600 hover:bg-red-500 text-white font-bold uppercase tracking-wider text-base md:text-lg px-12 md:px-16 py-5 md:py-6"
-              data-testid="cta-main-btn"
+              testId="cta-main-btn"
             >
               <WhatsAppIcon size={26} />
               Agendar Agora
-            </a>
+            </SplitButton>
           </motion.div>
         </motion.div>
       </div>
