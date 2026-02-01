@@ -141,10 +141,17 @@
 /* WhatsApp Float Button Premium */
 .whatsapp-float {
   position: fixed;
-  bottom: 32px;
-  right: 32px;
+  bottom: 24px;
+  right: 24px;
   z-index: 100;
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@media (min-width: 768px) {
+  .whatsapp-float {
+    bottom: 32px;
+    right: 32px;
+  }
 }
 
 .whatsapp-float:hover {
