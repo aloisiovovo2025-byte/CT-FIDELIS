@@ -1,8 +1,7 @@
 import "@/App.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { 
-  MessageCircle, 
   Instagram, 
   Phone, 
   Mail, 
@@ -13,7 +12,9 @@ import {
   Users,
   Zap,
   Menu,
-  X
+  X,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 // Assets - Updated with correct URLs
@@ -22,16 +23,27 @@ const HERO_BG_URL = "https://customer-assets.emergentagent.com/job_taekwondo-lan
 const WILLIAM_URL = "https://customer-assets.emergentagent.com/job_taekwondo-landing/artifacts/cgifsr9u_William%20%281%29.png";
 const WHATSAPP_URL = "https://wa.me/553199490457?text=Ol%C3%A1%2C%20professor%20William!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita.";
 const INSTAGRAM_URL = "https://www.instagram.com/equipefidelistkd/";
+const WHATSAPP_ICON_URL = "https://customer-assets.emergentagent.com/job_taekwondo-landing/artifacts/7fxu00vt_image.png";
 
 // Gallery Images
 const GALLERY_IMAGES = [
-  "https://images.unsplash.com/photo-1734189230018-490c04c78001?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1758778933112-af9fde620101?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1765303191119-89d0221d5c0b?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1769095216189-0ae27b6cc726?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1769095213266-4e8a64c8f874?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
-  "https://images.unsplash.com/photo-1758778932701-76ef06971b93?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
+  "https://images.unsplash.com/photo-1734189230018-490c04c78001?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  "https://images.unsplash.com/photo-1758778933112-af9fde620101?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  "https://images.unsplash.com/photo-1765303191119-89d0221d5c0b?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  "https://images.unsplash.com/photo-1769095216189-0ae27b6cc726?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  "https://images.unsplash.com/photo-1769095213266-4e8a64c8f874?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  "https://images.unsplash.com/photo-1758778932701-76ef06971b93?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
 ];
+
+// WhatsApp Icon Component
+const WhatsAppIcon = ({ size = 24, className = "" }) => (
+  <img 
+    src={WHATSAPP_ICON_URL} 
+    alt="WhatsApp" 
+    className={className}
+    style={{ width: size, height: size, objectFit: 'contain' }}
+  />
+);
 
 // Premium Animation Variants - Slide from sides
 const slideFromLeft = {
