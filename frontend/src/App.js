@@ -36,11 +36,10 @@ const GALLERY_IMAGES = [
 ];
 
 // WhatsApp Icon Component
-const WhatsAppIcon = ({ size = 24, className = "" }) => (
+const WhatsAppIcon = ({ size = 24 }) => (
   <img 
     src={WHATSAPP_ICON_URL} 
     alt="WhatsApp" 
-    className={className}
     style={{ width: size, height: size, objectFit: 'contain' }}
   />
 );
@@ -133,7 +132,7 @@ const Navbar = () => {
           className="hidden md:flex items-center gap-2 btn-premium bg-red-600 hover:bg-red-500 text-white font-bold uppercase tracking-wider px-8 py-3 text-sm"
           data-testid="navbar-cta-btn"
         >
-          <MessageCircle size={18} />
+          <WhatsAppIcon size={18} />
           Agendar
         </a>
 
@@ -160,7 +159,7 @@ const Navbar = () => {
             className="flex items-center justify-center gap-2 w-full btn-premium bg-red-600 text-white font-bold uppercase tracking-wider px-8 py-4 text-sm"
             data-testid="mobile-cta-btn"
           >
-            <MessageCircle size={18} />
+            <WhatsAppIcon size={18} />
             Agendar Aula Gratuita
           </a>
         </motion.div>
@@ -261,7 +260,7 @@ const HeroSection = () => {
               className="inline-flex items-center gap-3 btn-premium bg-red-600 hover:bg-red-500 text-white font-bold uppercase tracking-wider text-sm md:text-base px-10 md:px-14 py-4 md:py-5"
               data-testid="hero-cta-btn"
             >
-              <MessageCircle size={22} />
+              <WhatsAppIcon size={22} />
               Aula Gratuita
             </a>
           </motion.div>
@@ -483,42 +482,72 @@ const AuthoritySection = () => {
   );
 };
 
-// Gallery Item Component
-const GalleryItem = ({ src, index }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  
-  // Alternate between left and right slide
-  const xOffset = index % 2 === 0 ? -60 : 60;
-  
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: xOffset, scale: 0.9 }}
-      animate={isInView ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: xOffset, scale: 0.9 }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.25, 0.8, 0.25, 1] }}
-      className="gallery-item aspect-square bg-neutral-900"
-      data-testid={`gallery-item-${index}`}
-    >
-      <img 
-        src={src}
-        alt={`Treino CT Fidelis ${index + 1}`}
-        className="w-full h-full object-cover"
-        loading="lazy"
-      />
-    </motion.div>
-  );
-};
-
-// Gallery Section
-const GallerySection = () => {
+// Image Carousel Section
+const CarouselSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const carouselRef = useRef(null);
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % GALLERY_IMAGES.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const goToSlide = useCallback((index) => {
+    setCurrentIndex(index);
+    setIsAutoPlaying(false);
+    // Resume auto-play after 8 seconds
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  }, []);
+
+  const goToPrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  }, []);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % GALLERY_IMAGES.length);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
+  }, []);
+
+  // Touch/drag handling
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) goToNext();
+    if (isRightSwipe) goToPrev();
+  };
 
   return (
     <section 
       ref={ref}
-      className="py-24 md:py-36 bg-[#050505]"
+      className="py-24 md:py-36 bg-[#050505] overflow-hidden"
       data-testid="gallery-section"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -538,15 +567,102 @@ const GallerySection = () => {
           </p>
         </motion.div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-          <GalleryItem src={GALLERY_IMAGES[0]} index={0} />
-          <GalleryItem src={GALLERY_IMAGES[1]} index={1} />
-          <GalleryItem src={GALLERY_IMAGES[2]} index={2} />
-          <GalleryItem src={GALLERY_IMAGES[3]} index={3} />
-          <GalleryItem src={GALLERY_IMAGES[4]} index={4} />
-          <GalleryItem src={GALLERY_IMAGES[5]} index={5} />
-        </div>
+        {/* Carousel Container */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="relative"
+        >
+          {/* Navigation Arrows */}
+          <button
+            onClick={goToPrev}
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-black/60 hover:bg-red-600/80 border border-white/10 hover:border-red-500/50 flex items-center justify-center text-white transition-all duration-300 backdrop-blur-sm"
+            data-testid="carousel-prev-btn"
+            aria-label="Foto anterior"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          
+          <button
+            onClick={goToNext}
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-black/60 hover:bg-red-600/80 border border-white/10 hover:border-red-500/50 flex items-center justify-center text-white transition-all duration-300 backdrop-blur-sm"
+            data-testid="carousel-next-btn"
+            aria-label="Próxima foto"
+          >
+            <ChevronRight size={24} />
+          </button>
+
+          {/* Carousel Track */}
+          <div 
+            ref={carouselRef}
+            className="relative overflow-hidden"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+            <motion.div
+              className="flex"
+              animate={{ x: `-${currentIndex * 100}%` }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 30,
+                duration: 0.5 
+              }}
+            >
+              {GALLERY_IMAGES.map((src, index) => (
+                <div 
+                  key={index}
+                  className="flex-shrink-0 w-full"
+                  data-testid={`carousel-slide-${index}`}
+                >
+                  <div className="aspect-[16/9] md:aspect-[21/9] overflow-hidden bg-neutral-900">
+                    <img 
+                      src={src}
+                      alt={`Treino CT Fidelis ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                    {/* Overlay gradients */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 pointer-events-none" />
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Dot Indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {GALLERY_IMAGES.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex 
+                    ? 'w-8 bg-red-500' 
+                    : 'bg-white/30 hover:bg-white/50'
+                }`}
+                data-testid={`carousel-dot-${index}`}
+                aria-label={`Ir para foto ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mt-4 h-0.5 bg-white/10 overflow-hidden">
+            <motion.div
+              className="h-full bg-red-500"
+              initial={{ width: "0%" }}
+              animate={{ width: isAutoPlaying ? "100%" : `${(currentIndex / (GALLERY_IMAGES.length - 1)) * 100}%` }}
+              transition={{ 
+                duration: isAutoPlaying ? 4 : 0.3,
+                ease: "linear"
+              }}
+              key={isAutoPlaying ? currentIndex : 'manual'}
+            />
+          </div>
+        </motion.div>
 
         {/* Instagram CTA */}
         <motion.div
@@ -621,7 +737,7 @@ const CTASection = () => {
               className="inline-flex items-center gap-3 btn-premium bg-red-600 hover:bg-red-500 text-white font-bold uppercase tracking-wider text-base md:text-lg px-12 md:px-16 py-5 md:py-6"
               data-testid="cta-main-btn"
             >
-              <MessageCircle size={24} />
+              <WhatsAppIcon size={26} />
               Agendar Agora
             </a>
           </motion.div>
@@ -702,10 +818,10 @@ const Footer = () => {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-neutral-900 border border-white/10 flex items-center justify-center text-neutral-400 hover:text-green-500 hover:border-green-500/50 transition-all"
+                className="w-12 h-12 bg-neutral-900 border border-white/10 flex items-center justify-center hover:border-green-500/50 transition-all"
                 data-testid="footer-whatsapp"
               >
-                <MessageCircle size={18} />
+                <WhatsAppIcon size={20} />
               </a>
             </div>
           </div>
@@ -749,7 +865,7 @@ const WhatsAppFloat = () => {
       data-testid="whatsapp-float-btn"
       aria-label="Contato via WhatsApp"
     >
-      <MessageCircle size={26} className="text-white" />
+      <WhatsAppIcon size={28} />
     </motion.a>
   );
 };
@@ -764,7 +880,7 @@ function App() {
         <HeroSection />
         <TargetSection />
         <AuthoritySection />
-        <GallerySection />
+        <CarouselSection />
         <CTASection />
       </main>
       <Footer />
