@@ -44,38 +44,44 @@ const WhatsAppIcon = ({ size = 24 }) => (
 
 // Split Button Component with vertical cut animation (Fruit Ninja style)
 const SplitButton = ({ children, href, className = "", testId }) => {
-  const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = (e) => {
     e.preventDefault();
-    setIsClicked(true);
+
+    const btn = e.currentTarget;
+    if (btn.classList.contains("is-clicked")) return;
+
+    btn.classList.add("is-clicked");
+
     setTimeout(() => {
-      setIsClicked(false);
+      btn.classList.remove("is-clicked");
       if (href) {
-        window.open(href, '_blank', 'noopener,noreferrer');
+        window.open(href, "_blank", "noopener,noreferrer");
       }
-    }, 450);
+    }, 420);
   };
 
   return (
     <button
+      type="button"
       onClick={handleClick}
-      className={`split-button ${className} ${isClicked ? 'is-clicked' : ''}`}
       data-testid={testId}
+      className={`split-button ${className}`}
     >
-      {/* Left half */}
-      <div className="split-button-left">
-        <span>{children}</span>
-      </div>
-      {/* Right half */}
-      <div className="split-button-right">
-        <span>{children}</span>
-      </div>
-      {/* Normal content */}
       <span className="split-button-content">{children}</span>
+
+      <span className="split-button-left">
+        <span>{children}</span>
+      </span>
+
+      <span className="split-button-right">
+        <span>{children}</span>
+      </span>
     </button>
   );
 };
+
+
 
 // Premium Animation Variants - Slide from sides
 const slideFromLeft = {

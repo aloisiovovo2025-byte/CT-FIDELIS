@@ -242,92 +242,95 @@
   border-color: rgba(220, 38, 38, 0.3);
 }
 
-/* Split Button Animation - Vertical Cut (Fruit Ninja style) */
+/* Base */
 .split-button {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   cursor: pointer;
+  background: #111;
+  color: #fff;
+  border: none;
+  transform-origin: center;
 }
 
+/* Conteúdo */
 .split-button-content {
   position: relative;
-  z-index: 1;
-  display: flex;
+  z-index: 3;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
+  transition: opacity 0.12s ease;
 }
 
+/* Metades */
 .split-button-left,
 .split-button-right {
   position: absolute;
   top: 0;
-  bottom: 0;
   width: 50%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  opacity: 0;
   pointer-events: none;
-  background: inherit;
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: #111;
+  opacity: 0;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.18s ease,
+    opacity 0.1s ease;
 }
 
 .split-button-left {
   left: 0;
-  clip-path: inset(0 50% 0 0);
-  transform-origin: right center;
 }
 
 .split-button-right {
   right: 0;
-  clip-path: inset(0 0 0 50%);
-  transform-origin: left center;
 }
 
 .split-button-left > span,
 .split-button-right > span {
-  position: absolute;
   white-space: nowrap;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.split-button-left > span {
-  left: 0;
-  padding-left: inherit;
-}
-
-.split-button-right > span {
-  right: 0;
-  padding-right: inherit;
-}
-
+/* 🍉 SLICE */
 .split-button.is-clicked .split-button-content {
   opacity: 0;
-  transition: opacity 0.1s;
 }
 
 .split-button.is-clicked .split-button-left,
 .split-button.is-clicked .split-button-right {
   opacity: 1;
+  background: #b00020; /* vermelho hit */
 }
 
+/* Afastamento real */
 .split-button.is-clicked .split-button-left {
-  transform: translateX(-12px) rotate(-4deg);
+  transform:
+    translate(-32px, -12px)
+    rotate(-10deg)
+    scale(0.98);
 }
 
 .split-button.is-clicked .split-button-right {
-  transform: translateX(12px) rotate(4deg);
+  transform:
+    translate(32px, 12px)
+    rotate(10deg)
+    scale(0.98);
 }
 
-/* Button hover enhancement */
-.split-button:hover {
-  transform: translateY(-2px);
+/* Micro impacto */
+.split-button.is-clicked {
+  animation: hit 0.15s ease-out;
 }
 
-.split-button:active {
-  transform: translateY(0);
+@keyframes hit {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
 }
