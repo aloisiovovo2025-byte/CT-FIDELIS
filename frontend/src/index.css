@@ -5,7 +5,7 @@
 /* Ethnocentric Font */
 @font-face {
   font-family: 'Ethnocentric';
-  src: url('./fonts/ethnocentric.ttf') format('truetype');
+  src: url('./fonts/Ethnocentric-Regular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
