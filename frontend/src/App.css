@@ -242,10 +242,11 @@
   border-color: rgba(220, 38, 38, 0.3);
 }
 
-/* Split Button Animation */
+/* Split Button Animation - Vertical Cut (Fruit Ninja style) */
 .split-button {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  cursor: pointer;
 }
 
 .split-button-content {
@@ -253,52 +254,73 @@
   z-index: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  transition: opacity 0.2s ease;
 }
 
-.split-button-top,
-.split-button-bottom {
+.split-button-left,
+.split-button-right {
   position: absolute;
-  left: 0;
-  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  height: 50%;
   overflow: hidden;
   opacity: 0;
+  pointer-events: none;
   background: inherit;
-  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.split-button-top {
-  top: 0;
-  transform: translateY(0) rotate(0deg);
-  transform-origin: bottom center;
+.split-button-left {
+  left: 0;
+  clip-path: inset(0 50% 0 0);
+  transform-origin: right center;
 }
 
-.split-button-bottom {
-  bottom: 0;
-  transform: translateY(0) rotate(0deg);
-  transform-origin: top center;
+.split-button-right {
+  right: 0;
+  clip-path: inset(0 0 0 50%);
+  transform-origin: left center;
+}
+
+.split-button-left > span,
+.split-button-right > span {
+  position: absolute;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.split-button-left > span {
+  left: 0;
+  padding-left: inherit;
+}
+
+.split-button-right > span {
+  right: 0;
+  padding-right: inherit;
 }
 
 .split-button.is-clicked .split-button-content {
   opacity: 0;
+  transition: opacity 0.1s;
 }
 
-.split-button.is-clicked .split-button-top {
+.split-button.is-clicked .split-button-left,
+.split-button.is-clicked .split-button-right {
   opacity: 1;
-  transform: translateY(-8px) rotate(-3deg);
-  background: #DC2626;
 }
 
-.split-button.is-clicked .split-button-bottom {
-  opacity: 1;
-  transform: translateY(8px) rotate(3deg);
-  background: #DC2626;
+.split-button.is-clicked .split-button-left {
+  transform: translateX(-12px) rotate(-4deg);
+}
+
+.split-button.is-clicked .split-button-right {
+  transform: translateX(12px) rotate(4deg);
 }
 
 /* Button hover enhancement */

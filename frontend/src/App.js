@@ -25,12 +25,12 @@ const WHATSAPP_ICON_URL = "https://customer-assets.emergentagent.com/job_taekwon
 
 // Gallery Images
 const GALLERY_IMAGES = [
-  "https://images.unsplash.com/photo-1734189230018-490c04c78001?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
-  "https://images.unsplash.com/photo-1758778933112-af9fde620101?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
-  "https://images.unsplash.com/photo-1765303191119-89d0221d5c0b?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
-  "https://images.unsplash.com/photo-1769095216189-0ae27b6cc726?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
-  "https://images.unsplash.com/photo-1769095213266-4e8a64c8f874?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
-  "https://images.unsplash.com/photo-1758778932701-76ef06971b93?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+  "https://image2url.com/r2/default/images/1769927604188-6dee5628-7cf6-45ed-8f06-b79d6a560b88.jpg",
+  "https://image2url.com/r2/default/images/1769927639825-3608688f-22f8-48a4-8135-f136af1dfef7.jpg",
+  "https://image2url.com/r2/default/images/1769927535993-68da5a98-9f0a-423c-a05a-48c4716c2ba5.jpg",
+  "https://image2url.com/r2/default/images/1769927684435-60ec2e71-199c-4277-ab5f-5ac4b9f8e469.png",
+  "https://image2url.com/r2/default/images/1769927736350-f9fb331d-89d7-4bf2-8d61-5e4454b7ce0f.jpg",
+  "https://image2url.com/r2/default/images/1769927773051-0e735166-60e7-4e64-a776-b478ce8a6f0f.jpg",
 ];
 
 // WhatsApp Icon Component
