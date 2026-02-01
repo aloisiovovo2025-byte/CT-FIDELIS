@@ -230,3 +230,82 @@
   width: 4px;
   background: linear-gradient(180deg, #DC2626 0%, #991B1B 100%);
 }
+
+/* Carousel Card */
+.carousel-card {
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.carousel-card:hover {
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+/* Split Button Animation */
+.split-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.split-button-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.split-button-top,
+.split-button-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 50%;
+  overflow: hidden;
+  opacity: 0;
+  background: inherit;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.split-button-top {
+  top: 0;
+  transform: translateY(0) rotate(0deg);
+  transform-origin: bottom center;
+}
+
+.split-button-bottom {
+  bottom: 0;
+  transform: translateY(0) rotate(0deg);
+  transform-origin: top center;
+}
+
+.split-button.is-clicked .split-button-content {
+  opacity: 0;
+}
+
+.split-button.is-clicked .split-button-top {
+  opacity: 1;
+  transform: translateY(-8px) rotate(-3deg);
+  background: #DC2626;
+}
+
+.split-button.is-clicked .split-button-bottom {
+  opacity: 1;
+  transform: translateY(8px) rotate(3deg);
+  background: #DC2626;
+}
+
+/* Button hover enhancement */
+.split-button:hover {
+  transform: translateY(-2px);
+}
+
+.split-button:active {
+  transform: translateY(0);
+}
