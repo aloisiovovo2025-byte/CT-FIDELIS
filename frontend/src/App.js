@@ -44,44 +44,38 @@ const WhatsAppIcon = ({ size = 24 }) => (
 
 // Split Button Component with vertical cut animation (Fruit Ninja style)
 const SplitButton = ({ children, href, className = "", testId }) => {
+  const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = (e) => {
     e.preventDefault();
-
-    const btn = e.currentTarget;
-    if (btn.classList.contains("is-clicked")) return;
-
-    btn.classList.add("is-clicked");
-
+    setIsClicked(true);
     setTimeout(() => {
-      btn.classList.remove("is-clicked");
+      setIsClicked(false);
       if (href) {
-        window.open(href, "_blank", "noopener,noreferrer");
+        window.open(href, '_blank', 'noopener,noreferrer');
       }
-    }, 420);
+    }, 450);
   };
 
   return (
     <button
-      type="button"
       onClick={handleClick}
+      className={`split-button ${className} ${isClicked ? 'is-clicked' : ''}`}
       data-testid={testId}
-      className={`split-button ${className}`}
     >
+      {/* Left half */}
+      <div className="split-button-left">
+        <span>{children}</span>
+      </div>
+      {/* Right half */}
+      <div className="split-button-right">
+        <span>{children}</span>
+      </div>
+      {/* Normal content */}
       <span className="split-button-content">{children}</span>
-
-      <span className="split-button-left">
-        <span>{children}</span>
-      </span>
-
-      <span className="split-button-right">
-        <span>{children}</span>
-      </span>
     </button>
   );
 };
-
-
 
 // Premium Animation Variants - Slide from sides
 const slideFromLeft = {
@@ -462,7 +456,7 @@ const AuthoritySection = () => {
                 <span className="text-red-500">Fidelis</span>
               </h2>
               <p className="text-neutral-400 text-base md:text-lg leading-relaxed">
-                Dedicação baseada em honestidade e firmeza. Mais de 15 anos formando campeões no tatame e na vida.
+                Dedicação baseada em honestidade e firmeza. Mais de 6 anos formando campeões no tatame e na vida.
               </p>
             </div>
 
@@ -485,7 +479,7 @@ const AuthoritySection = () => {
                 <p className="text-lg md:text-xl lg:text-2xl text-white italic font-light leading-relaxed" data-testid="authority-quote">
                   "Cada aluno é um campeão em formação"
                 </p>
-                <cite className="text-neutral-500 text-sm mt-3 block not-italic">— Professor William Fidelis</cite>
+                <cite className="text-neutral-500 text-sm mt-3 block not-italic">— Professor William Fidelis, Faixa preta 1° Dan</cite>
               </div>
             </motion.div>
           </motion.div>
