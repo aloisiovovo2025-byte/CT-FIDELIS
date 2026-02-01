@@ -42,30 +42,36 @@ const WhatsAppIcon = ({ size = 24 }) => (
   />
 );
 
-// Split Button Component with diagonal animation
+// Split Button Component with vertical cut animation (Fruit Ninja style)
 const SplitButton = ({ children, href, className = "", testId }) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = (e) => {
+    e.preventDefault();
     setIsClicked(true);
     setTimeout(() => {
       setIsClicked(false);
-      // Navigate after animation
       if (href) {
         window.open(href, '_blank', 'noopener,noreferrer');
       }
-    }, 400);
-    e.preventDefault();
+    }, 450);
   };
 
   return (
     <button
       onClick={handleClick}
-      className={`split-button relative overflow-hidden ${className} ${isClicked ? 'is-clicked' : ''}`}
+      className={`split-button ${className} ${isClicked ? 'is-clicked' : ''}`}
       data-testid={testId}
     >
-      <span className="split-button-top">{children}</span>
-      <span className="split-button-bottom">{children}</span>
+      {/* Left half */}
+      <div className="split-button-left">
+        <span>{children}</span>
+      </div>
+      {/* Right half */}
+      <div className="split-button-right">
+        <span>{children}</span>
+      </div>
+      {/* Normal content */}
       <span className="split-button-content">{children}</span>
     </button>
   );
