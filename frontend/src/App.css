@@ -242,95 +242,20 @@
   border-color: rgba(220, 38, 38, 0.3);
 }
 
-/* Base */
+/* Button Animation - Simple click effect */
 .split-button {
   position: relative;
-  overflow: hidden;
   cursor: pointer;
-  background: #111;
-  color: #fff;
-  border: none;
-  transform-origin: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Conteúdo */
-.split-button-content {
-  position: relative;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: opacity 0.12s ease;
+.split-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
 }
 
-/* Metades */
-.split-button-left,
-.split-button-right {
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  background: #111;
-  opacity: 0;
-  transition:
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.18s ease,
-    opacity 0.1s ease;
-}
-
-.split-button-left {
-  left: 0;
-}
-
-.split-button-right {
-  right: 0;
-}
-
-.split-button-left > span,
-.split-button-right > span {
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* 🍉 SLICE */
-.split-button.is-clicked .split-button-content {
-  opacity: 0;
-}
-
-.split-button.is-clicked .split-button-left,
-.split-button.is-clicked .split-button-right {
-  opacity: 1;
-  background: #b00020; /* vermelho hit */
-}
-
-/* Afastamento real */
-.split-button.is-clicked .split-button-left {
-  transform:
-    translate(-32px, -12px)
-    rotate(-10deg)
-    scale(0.98);
-}
-
-.split-button.is-clicked .split-button-right {
-  transform:
-    translate(32px, 12px)
-    rotate(10deg)
-    scale(0.98);
-}
-
-/* Micro impacto */
+.split-button:active,
 .split-button.is-clicked {
-  animation: hit 0.15s ease-out;
-}
-
-@keyframes hit {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(0.96); }
-  100% { transform: scale(1); }
+  transform: translateY(0);
+  background: #B91C1C !important;
 }
