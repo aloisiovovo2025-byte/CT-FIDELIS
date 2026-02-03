@@ -692,7 +692,7 @@ const Footer = () => {
                   data-testid="footer-phone"
                 >
                   <Phone size={16} />
-                  +55 31 99490-4574
+                  +55 31 9490-4574
                 </a>
               </li>
               <li>
