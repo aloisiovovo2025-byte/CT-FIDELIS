@@ -242,51 +242,19 @@
   border-color: rgba(220, 38, 38, 0.3);
 }
 
-/* ================================
-   SPLIT BUTTON — SIMPLE CLICK
-   ================================ */
-
-.split-button {
+/* Action Button - Simple hover effect */
+.action-button {
   position: relative;
   cursor: pointer;
-  border: none;
-  background: transparent;
-  padding: 0;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Conteúdo principal */
-.split-button-content {
-  position: relative;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 12px 24px;
-  background: #dc2626; /* vermelho normal */
-  color: #fff;
-  border-radius: 6px;
-  transition: background 0.2s ease;
-}
-
-/* Hover — mantém o efeito bonito */
-.split-button:hover {
-  transform: translateY(-2px);
+.action-button:hover {
+  transform: translateY(-3px);
   box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
 }
 
-/* Clique — SEM animação de corte */
-.split-button:active .split-button-content,
-.split-button.is-clicked .split-button-content {
-  background: #b91c1c; /* vermelho mais escuro */
-}
-
-/* ================================
-   DESATIVA COMPLETAMENTE O SLICE
-   ================================ */
-
-.split-button-left,
-.split-button-right {
-  display: none !important;
+.action-button:active {
+  transform: translateY(-1px);
+  background: #B91C1C !important;
 }
