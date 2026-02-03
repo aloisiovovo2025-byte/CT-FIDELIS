@@ -23,7 +23,7 @@ const INSTAGRAM_URL = "https://www.instagram.com/equipefidelistkd/";
 const WHATSAPP_ICON_URL = "https://customer-assets.emergentagent.com/job_taekwondo-landing/artifacts/7fxu00vt_image.png";
 
 // CORRECTED WhatsApp URL - Phone: +55 31 9490-4574
-const WHATSAPP_NUMBER = "5531994904574";
+const WHATSAPP_NUMBER = "553194904574";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Olá, professor William! Gostaria de agendar uma aula experimental gratuita.")}`;
 
 // Gallery Images
